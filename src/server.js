@@ -1,4 +1,3 @@
-// filepath: /C:/Users/Toni/Desktop/Prueba-tecnica-Coally/task-manager-backend/src/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/taskmanager')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/taskmanager')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -30,7 +29,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: process.env.RENDER_EXTERNAL_URL || "http://localhost:5000",
       },
     ],
   },

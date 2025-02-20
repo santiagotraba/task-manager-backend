@@ -12,7 +12,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: process.env.RENDER_EXTERNAL_URL || "http://localhost:5000",
       },
     ],
   },
