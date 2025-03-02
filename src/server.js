@@ -13,10 +13,24 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 
-// Configuración de CORS
+const allowedOrigins = [
+  'http://localhost:3000', // Para desarrollo local
+  'https://task-manager-frontend-sepia.vercel.app', // Para producción
+];
+
 app.use(cors({
-  origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
-  credentials: true, // Si necesitas enviar cookies o autenticación
+  origin: function (origin, callback) {
+    // Permite solicitudes sin origen (como herramientas de prueba o Postman)
+    if (!origin) return callback(null, true);
+
+    // Verifica si el origen está en la lista de permitidos
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Origen no permitido por CORS'));
+    }
+  },
+  credentials: true, // Permite enviar cookies o credenciales
 }));
 
 // MongoDB connection
