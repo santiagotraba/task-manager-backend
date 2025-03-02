@@ -12,7 +12,12 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
+  credentials: true, // Si necesitas enviar cookies o autenticación
+}));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI_DOS || 'mongodb://localhost:27017/taskmanager')
