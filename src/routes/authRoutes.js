@@ -44,6 +44,7 @@ router.post('/login', async (req, res) => {
 
     console.log('Comparando contraseña para el usuario:', username); // Depuración
     const isPasswordValid = await user.comparePassword(password);
+    console.log('Contraseña válida:', isPasswordValid); // Debe ser true
     if (!isPasswordValid) {
       console.log('Contraseña incorrecta para el usuario:', username); // Depuración
       return res.status(401).json({ error: 'Invalid credentials' });
