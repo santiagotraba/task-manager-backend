@@ -34,9 +34,12 @@ app.use(cors({
 }));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI_DOS || 'mongodb://localhost:27017/taskmanager')
+mongoose.connect(process.env.MONGO_URI_DOS, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(err => console.log('Error connecting to MongoDB:', err));
 
 // Swagger setup
 const swaggerOptions = {
